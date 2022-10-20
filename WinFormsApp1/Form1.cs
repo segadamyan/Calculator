@@ -5,6 +5,8 @@ namespace WinFormsApp1
         Double resultValue = 0;
         String operationPerformed = "";
         bool isOperationPerformed = false;
+        bool previouseStep = false; 
+
         public Form1()
         {
             InitializeComponent();
@@ -34,7 +36,7 @@ namespace WinFormsApp1
             }
             else
                 textBox_result.Text = textBox_result.Text + button.Text;
-
+            this.previouseStep = false;
         }
 
         private void operator_click(object sender, EventArgs e)
@@ -55,6 +57,7 @@ namespace WinFormsApp1
                 labelCurrentOperation.Text = resultValue + " " + operationPerformed;
                 isOperationPerformed = true;
             }
+            this.previouseStep = true;
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -65,31 +68,37 @@ namespace WinFormsApp1
         private void button13_Click(object sender, EventArgs e)
         {
             textBox_result.Text = "0";
+            labelCurrentOperation.Text = "";
             resultValue = 0;
+            this.previouseStep = false;
         }
 
         private void button23_Click(object sender, EventArgs e)
         {
-            switch (operationPerformed)
+            if (!this.previouseStep)
             {
-                case "+":
-                    textBox_result.Text = (resultValue + Double.Parse(textBox_result.Text)).ToString();
-                    break;
-                case "-":
-                    textBox_result.Text = (resultValue - Double.Parse(textBox_result.Text)).ToString();
-                    break;
-                case "*":
-                    textBox_result.Text = (resultValue * Double.Parse(textBox_result.Text)).ToString();
-                    break;
-                case "/":
-                    textBox_result.Text = (resultValue / Double.Parse(textBox_result.Text)).ToString();
-                    break;
-                default:
-                    break;
+                switch (operationPerformed)
+                {
+                    case "+":
+                        textBox_result.Text = (resultValue + Double.Parse(textBox_result.Text)).ToString();
+                        break;
+                    case "-":
+                        textBox_result.Text = (resultValue - Double.Parse(textBox_result.Text)).ToString();
+                        break;
+                    case "*":
+                        textBox_result.Text = (resultValue * Double.Parse(textBox_result.Text)).ToString();
+                        break;
+                    case "/":
+                        textBox_result.Text = (resultValue / Double.Parse(textBox_result.Text)).ToString();
+                        break;
+                    default:
+                        
+                        break;
+                }
+                resultValue = Double.Parse(textBox_result.Text);
+                labelCurrentOperation.Text = "";
+                this.previouseStep = true;
             }
-            resultValue = Double.Parse(textBox_result.Text);
-            labelCurrentOperation.Text = "";
-
         }
 
         private void label1_Click(object sender, EventArgs e)
